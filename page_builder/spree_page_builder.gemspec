@@ -2,12 +2,12 @@ require_relative '../core/lib/spree/core/version'
 
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
-  s.name        = 'spree_storefront'
+  s.name        = 'spree_page_builder'
   s.version     = Spree.version
   s.authors     = ['Vendo Connect Inc.']
   s.email       = 'hello@spreecommerce.org'
-  s.summary     = 'Modern fully featured storefront and checkout for Spree Commerce'
-  s.description = 'Modern fully featured storefront and checkout for Spree Commerce'
+  s.summary     = 'Visual Page Builder for Spree Commerce'
+  s.description = 'Visual page builder and theme management for Spree Commerce storefronts'
   s.homepage    = 'https://getvendo.com'
   s.license     = 'AGPL-3.0-or-later'
 
@@ -25,17 +25,5 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
 
   s.add_dependency 'spree_core', ">= #{s.version}"
-  s.add_dependency 'spree_page_builder', ">= #{s.version}"
-
-  s.add_dependency 'active_link_to'
-  s.add_dependency 'canonical-rails', '~> 0.2.14'
-  s.add_dependency 'heroicon'
-  s.add_dependency 'importmap-rails'
-  s.add_dependency 'inline_svg', '~> 1.10'
-  s.add_dependency 'local_time', '~> 3.0'
-  s.add_dependency 'mail_form'
-  s.add_dependency 'stimulus-rails'
-  s.add_dependency 'tailwindcss-rails'
-  s.add_dependency 'tailwindcss-ruby'
-  s.add_dependency 'turbo-rails'
+  s.add_dependency 'spree_admin', ">= #{s.version}"
 end

@@ -3,13 +3,7 @@ eval_gemfile('../common_spree_dependencies.rb')
 gem 'spree_core', path: '../core'
 gem 'spree_api', path: '../api'
 gem 'spree_admin', path: '../admin'
-gem 'spree_emails', path: '../emails'
-gem 'spree_page_builder', path: '../page_builder'
 
 gem 'devise'
-
-group :test, :development do
-  gem 'selenium-webdriver'
-end
 
 gemspec
