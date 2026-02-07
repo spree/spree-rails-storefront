@@ -1,16 +1,56 @@
-eval_gemfile('../common_spree_dependencies.rb')
+source 'https://rubygems.org'
 
-gem 'spree', path: '../'
-gem 'spree_admin', path: '../admin'
-gem 'spree_emails', path: '../emails'
+gem 'rails', ENV.fetch('RAILS_VERSION', '~> 8.1.0'), require: false
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
+platforms :jruby do
+  gem 'jruby-openssl'
+end
+
+platforms :ruby do
+  gem 'mysql2' if ENV['DB'] == 'mysql' || ENV['CI']
+  gem 'pg' if ENV['DB'] == 'postgres' || ENV['CI']
+  gem 'sqlite3', '>= 2.0'
+end
+
+spree_opts = { github: 'spree/spree', branch: 'main' }
+gem 'spree', spree_opts
+gem 'spree_admin', spree_opts
 gem 'spree_page_builder', path: '../page_builder'
 
 gem 'devise'
-gem 'sprockets-rails', '>= 3.5.2'
-gem 'kaminari', '~> 1.2' # for testing backwards compatibility with Kaminari
+gem 'propshaft'
+gem 'kaminari', '~> 1.2'
+
+group :test do
+  gem 'parallel_tests'
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'capybara-select-2'
+  gem 'database_cleaner-active_record'
+  gem 'email_spec'
+  gem 'factory_bot_rails', '~> 6.2.0'
+  gem 'multi_json'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-rails'
+  gem 'rspec-retry'
+  gem 'rspec_junit_formatter'
+  gem 'simplecov'
+  gem 'webmock'
+  gem 'timecop'
+  gem 'test-prof'
+  gem 'rails-controller-testing'
+  gem 'shoulda-matchers', '~> 6.0'
+end
 
 group :test, :development do
+  gem 'awesome_print'
+  gem 'i18n-tasks'
+  gem 'pry-byebug'
+  gem 'puma'
+  gem 'ffaker'
   gem 'selenium-webdriver'
+  gem 'observer'
 end
 
 gemspec

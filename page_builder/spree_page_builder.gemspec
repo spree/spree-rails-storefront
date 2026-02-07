@@ -1,9 +1,9 @@
-require_relative '../core/lib/spree/core/version'
+require_relative '../lib/spree_storefront/version'
 
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_page_builder'
-  s.version     = Spree.version
+  s.version     = SpreeStorefront::VERSION
   s.authors     = ['Vendo Connect Inc.']
   s.email       = 'hello@spreecommerce.org'
   s.summary     = 'Visual Page Builder for Spree Commerce'
@@ -12,10 +12,10 @@ Gem::Specification.new do |s|
   s.license     = 'AGPL-3.0-or-later'
 
   s.metadata = {
-    'bug_tracker_uri' => 'https://github.com/spree/spree/issues',
-    'changelog_uri' => "https://github.com/spree/spree/releases/tag/v#{s.version}",
+    'bug_tracker_uri' => 'https://github.com/spree/spree-rails-storefront/issues',
+    'changelog_uri' => "https://github.com/spree/spree-rails-storefront/releases/tag/v#{s.version}",
     'documentation_uri' => 'https://docs.spreecommerce.org/',
-    'source_code_uri' => "https://github.com/spree/spree/tree/v#{s.version}",
+    'source_code_uri' => "https://github.com/spree/spree-rails-storefront/tree/v#{s.version}",
   }
 
   s.required_ruby_version     = '>= 3.2'
