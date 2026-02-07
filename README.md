@@ -37,6 +37,8 @@ This will set up the storefront views, Tailwind CSS configuration, and page buil
 
 ### Storefront
 
+![Spree Storefront](storefront/storefront.png)
+
 - Product catalog with filtering and search
 - Shopping cart with guest persistence
 - Multi-step checkout (address, shipping, payment)
@@ -45,6 +47,8 @@ This will set up the storefront views, Tailwind CSS configuration, and page buil
 - Automatically cropping, resizing, and optimizing images for performance, CDN-ready
 
 ### Page Builder
+
+![Spree Page Builder](page_builder/page_builder.png)
 
 - Visual editor for creating custom pages
 - Theme management with multiple themes per store

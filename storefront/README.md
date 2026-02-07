@@ -4,6 +4,8 @@
 
 Spree Storefront provides a modern, fully-featured Rails-based storefront for Spree Commerce with a responsive design and optimized shopping experience.
 
+![Spree Storefront](storefront.png)
+
 ## Overview
 
 This gem includes:

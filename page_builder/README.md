@@ -2,6 +2,8 @@
 
 Visual page builder and theme management for Spree Commerce storefronts.
 
+![Spree Page Builder](page_builder.png)
+
 ## Overview
 
 Spree Page Builder provides a visual drag-and-drop interface for building and customizing storefront pages. It includes:
