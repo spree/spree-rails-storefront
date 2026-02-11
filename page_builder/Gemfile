@@ -13,7 +13,7 @@ platforms :ruby do
   gem 'sqlite3', '>= 2.0'
 end
 
-spree_opts = { github: 'spree/spree', branch: 'main' }
+spree_opts = { github: 'spree/spree', branch: 'main', glob: 'backend/engines/**/*.gemspec' }
 gem 'spree', spree_opts
 gem 'spree_admin', spree_opts
 
