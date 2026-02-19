@@ -73,7 +73,7 @@ Spree::Store.default.send(:create_default_theme)
 
 Check out our [Next.js Starter](https://github.com/spree/spree-nextjs-starter) with React 19, TypeScript and Tailwind CSS.
 
-You can also use the [Spree API](https://spreecommerce.org/docs/developer/api-reference) and [SDK](https://github.com/spree/spree/tree/main/sdk) to build your own storefront or mobile app.
+You can also use the [Spree API](https://spreecommerce.org/docs/developer/api-reference) and [SDK](https://github.com/spree/spree/tree/main/packages/sdk) to build your own storefront or mobile app.
 
 ## Development
 
