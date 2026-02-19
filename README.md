@@ -33,6 +33,12 @@ bin/rails g spree:storefront:install
 
 This will set up the storefront views, Tailwind CSS configuration, and page builder migrations.
 
+You will also need to create your first theme:
+
+```bash
+Spree::Store.default.send(:create_default_theme)
+```
+
 ## Features
 
 ### Storefront
