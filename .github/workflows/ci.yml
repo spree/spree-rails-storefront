@@ -11,22 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check_skip:
-    runs-on: ubuntu-latest
-    outputs:
-      should_skip: ${{ steps.check.outputs.should_skip }}
-    steps:
-      - id: check
-        run: |
-          if [[ "${{ github.event.head_commit.message }}" == *"[skip ci]"* ]] || [[ "${{ github.event.head_commit.message }}" == *"Skip CI"* ]]; then
-            echo "should_skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "should_skip=false" >> $GITHUB_OUTPUT
-          fi
-
   test_page_builder:
-    needs: check_skip
-    if: needs.check_skip.outputs.should_skip != 'true'
     name: Page Builder (${{ matrix.db }})
     runs-on: ubuntu-latest
     strategy:
@@ -73,6 +58,8 @@ jobs:
           ruby-version: '4.0'
           bundler-cache: true
           working-directory: page_builder
+      - name: Install libvips
+        run: sudo apt-get update && sudo apt-get install -y libvips
       - name: Create test app
         working-directory: page_builder
         run: bundle exec rake test_app
@@ -81,8 +68,6 @@ jobs:
         run: bundle exec rspec --format progress --format RspecJunitFormatter --out tmp/test-results/rspec.xml
 
   test_storefront:
-    needs: check_skip
-    if: needs.check_skip.outputs.should_skip != 'true'
     name: Storefront (${{ matrix.db }})
     runs-on: ubuntu-latest
     strategy:
@@ -124,14 +109,13 @@ jobs:
       CI: true
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '4.0'
           bundler-cache: true
           working-directory: storefront
+      - name: Install libvips
+        run: sudo apt-get update && sudo apt-get install -y libvips
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
         with:

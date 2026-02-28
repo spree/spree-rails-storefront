@@ -22,7 +22,7 @@ RSpec.describe Spree::Themes::ScreenshotJob do
     before do
       Spree.screenshot_api_token = 'test_token'
 
-      allow_any_instance_of(Spree::Store).to receive(:url_or_custom_domain).and_return('demo.spreecommerce.org')
+      store.update_column(:url, 'demo.spreecommerce.org')
       allow(Net::HTTP).to receive(:get_response).and_return(
         instance_double(Net::HTTPResponse, code: '200', body: file.read)
       )

@@ -27,6 +27,8 @@ rescue LoadError
 end
 
 require 'rspec/rails'
+require 'rails/controller/testing'
+Rails::Controller::Testing.install
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.

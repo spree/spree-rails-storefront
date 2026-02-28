@@ -136,6 +136,12 @@ module Spree
     Rails.application.config.spree.page_blocks = value
   end
 
+  mattr_accessor :screenshot_api_token
+
+  def self.screenshot_api_token
+    @@screenshot_api_token
+  end
+
   # Page Builder configuration accessor (groups all page builder config)
   def self.page_builder
     @page_builder ||= PageBuilderConfig.new

@@ -23,8 +23,9 @@ Gem::Specification.new do |s|
   s.files        = Dir["{app,config,db,lib,vendor}/**/*", "LICENSE.md", "Rakefile", "README.md"].reject { |f| f.match(/^spec/) && !f.match(/^spec\/fixtures/) }
   s.require_path = 'lib'
 
-  s.add_dependency 'spree', ">= #{s.version}"
-  s.add_dependency 'spree_page_builder', ">= #{s.version}"
+  spree_version = ">= #{s.version}"
+  s.add_dependency 'spree', spree_version
+  s.add_dependency 'spree_page_builder', spree_version
 
   s.add_dependency 'active_link_to'
   s.add_dependency 'heroicon'
@@ -37,4 +38,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'tailwindcss-ruby'
   s.add_dependency 'turbo-rails'
   s.add_dependency 'pagy', '~> 43.0'
+
+  s.add_development_dependency 'spree_dev_tools'
 end

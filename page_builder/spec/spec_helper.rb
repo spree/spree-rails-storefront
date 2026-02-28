@@ -23,6 +23,8 @@ rescue LoadError
 end
 
 require 'rspec/rails'
+require 'rails/controller/testing'
+Rails::Controller::Testing.install
 require 'database_cleaner/active_record'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
