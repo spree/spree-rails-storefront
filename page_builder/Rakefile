@@ -20,4 +20,5 @@ task :test_app do
   Rake::Task['extension:test_app'].execute(
     install_admin: true
   )
+  system({ 'BUNDLE_GEMFILE' => File.expand_path('Gemfile', __dir__) }, 'bundle exec rails g spree_posts:install')
 end
