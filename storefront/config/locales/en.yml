@@ -1,6 +1,9 @@
 ---
 en:
   spree:
+    all_posts: All Posts
+    all_posts_with_tag: All Posts tagged with %{tag}
+    blog: Blog
     storefront:
       account:
         change_password: Change password

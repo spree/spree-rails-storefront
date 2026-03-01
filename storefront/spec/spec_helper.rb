@@ -34,8 +34,12 @@ Rails::Controller::Testing.install
 # in ./support/ and its subdirectories.
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
+require 'capybara/rspec'
+require 'selenium-webdriver'
 require 'database_cleaner/active_record'
 require 'ffaker'
+require 'timecop'
+require 'rspec-activemodel-mocks'
 
 require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/factories'
