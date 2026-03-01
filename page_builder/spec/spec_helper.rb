@@ -40,6 +40,7 @@ require 'spree/testing_support/controller_requests'
 require 'spree/testing_support/url_helpers'
 
 require 'spree/page_builder/testing_support/factories'
+require 'spree_posts/factories'
 
 RSpec.configure do |config|
   config.color = true
