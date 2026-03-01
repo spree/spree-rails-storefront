@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   spree_version = ">= #{s.version}"
   s.add_dependency 'spree', spree_version
   s.add_dependency 'spree_admin', spree_version
+  s.add_dependency 'spree_posts'
 
   s.add_development_dependency 'spree_dev_tools'
 end

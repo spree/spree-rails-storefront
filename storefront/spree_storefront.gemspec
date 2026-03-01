@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   spree_version = ">= #{s.version}"
   s.add_dependency 'spree', spree_version
   s.add_dependency 'spree_page_builder', spree_version
+  s.add_dependency 'spree_posts'
 
   s.add_dependency 'active_link_to'
   s.add_dependency 'heroicon'

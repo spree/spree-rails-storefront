@@ -23,6 +23,7 @@ gem 'spree_admin', spree_opts
 gem 'spree_page_builder', path: '../page_builder'
 
 gem 'spree_multi_store', github: 'spree/spree-multi-store', branch: 'main'
+gem 'spree_posts', github: 'spree/spree-posts', branch: 'main'
 gem 'spree_dev_tools', '>= 0.6.0.rc1'
 
 gem 'devise'
