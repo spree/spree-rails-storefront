@@ -52,6 +52,7 @@ require 'spree/testing_support/rspec_retry_config'
 require 'spree/testing_support/image_helpers'
 
 require 'spree/page_builder/testing_support/factories'
+require 'spree_posts/factories'
 
 require 'spree/core/controller_helpers/strong_parameters'
 
