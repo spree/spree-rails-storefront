@@ -197,100 +197,93 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
       click_on 'sort-button'
       choose Spree.t('products_sort_options.best_selling'), allow_label_click: true
       wait_for_turbo
+      expect(page).to have_css('.page-contents .product-card-title', count: 5)
 
-      within('.page-contents') do
-        expect(page.all('.product-card-title').map(&:text)).to eq [
-          product6.name,
-          product2.name,
-          product1.name,
-          product3.name,
-          product4.name
-        ]
-      end
+      expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
+        product6.name,
+        product2.name,
+        product1.name,
+        product3.name,
+        product4.name
+      ]
     end
 
     it 'can sort alphabetically A-Z' do
       click_on 'sort-button'
       choose Spree.t('products_sort_options.name_a_z'), allow_label_click: true
       wait_for_turbo
+      expect(page).to have_css('.page-contents .product-card-title', count: 5)
 
-      within('.page-contents') do
-        expect(page.all('.product-card-title').map(&:text)).to eq [
-          product6.name,
-          product4.name,
-          product1.name,
-          product3.name,
-          product2.name,
-        ]
-      end
+      expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
+        product6.name,
+        product4.name,
+        product1.name,
+        product3.name,
+        product2.name,
+      ]
     end
 
     it 'can sort alphabetically Z-A' do
       click_on 'sort-button'
       choose Spree.t('products_sort_options.name_z_a'), allow_label_click: true
       wait_for_turbo
+      expect(page).to have_css('.page-contents .product-card-title', count: 5)
 
-      within('.page-contents') do
-        expect(page.all('.product-card-title').map(&:text)).to eq [
-          product2.name,
-          product3.name,
-          product1.name,
-          product4.name,
-          product6.name
-        ]
-      end
+      expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
+        product2.name,
+        product3.name,
+        product1.name,
+        product4.name,
+        product6.name
+      ]
     end
 
     it 'can sort by price in ascending order' do
       click_on 'sort-button'
       choose Spree.t('products_sort_options.price_low_to_high'), allow_label_click: true
       wait_for_turbo
+      expect(page).to have_css('.page-contents .product-card-price p', count: 5)
 
-      within('.page-contents') do
-        expect(page.all('.product-card-price p').map(&:text)).to eq ['$0.00', '$10.00', '$19.99', '$20.00', '$30.00']
-      end
+      expect(page.all('.page-contents .product-card-price p').map(&:text)).to eq ['$0.00', '$10.00', '$19.99', '$20.00', '$30.00']
     end
 
     it 'can sort by price in descending order' do
       click_on 'sort-button'
       choose Spree.t('products_sort_options.price_high_to_low'), allow_label_click: true
       wait_for_turbo
+      expect(page).to have_css('.page-contents .product-card-price p', count: 5)
 
-      within('.page-contents') do
-        expect(page.all('.product-card-price p').map(&:text)).to eq ['$30.00', '$20.00', '$19.99', '$10.00', '$0.00']
-      end
+      expect(page.all('.page-contents .product-card-price p').map(&:text)).to eq ['$30.00', '$20.00', '$19.99', '$10.00', '$0.00']
     end
 
     it 'can sort by newest' do
       click_on 'sort-button'
       choose Spree.t('products_sort_options.newest_first'), allow_label_click: true
       wait_for_turbo
+      expect(page).to have_css('.page-contents .product-card-title', count: 5)
 
-      within('.page-contents') do
-        expect(page.all('.product-card-title').map(&:text)).to eq [
-          product6.name,
-          product4.name,
-          product3.name,
-          product2.name,
-          product1.name,
-        ]
-      end
+      expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
+        product6.name,
+        product4.name,
+        product3.name,
+        product2.name,
+        product1.name,
+      ]
     end
 
     it 'can sort by oldest' do
       click_on 'sort-button'
       choose Spree.t('products_sort_options.oldest_first'), allow_label_click: true
       wait_for_turbo
+      expect(page).to have_css('.page-contents .product-card-title', count: 5)
 
-      within('.page-contents') do
-        expect(page.all('.product-card-title').map(&:text)).to eq [
-          product1.name,
-          product2.name,
-          product3.name,
-          product4.name,
-          product6.name,
-        ]
-      end
+      expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
+        product1.name,
+        product2.name,
+        product3.name,
+        product4.name,
+        product6.name,
+      ]
     end
   end
 end
