@@ -191,13 +191,18 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
       end
 
       visit spree.products_path
+      expect(page).to have_css('.page-contents .product-card-title', count: 5)
+    end
+
+    def sort_by(option)
+      click_on 'sort-button'
+      choose option, allow_label_click: true
+      wait_for_turbo
+      expect(page).to have_css('.page-contents .product-card-title', count: 5)
     end
 
     it 'can sort by best selling' do
-      click_on 'sort-button'
-      choose Spree.t('products_sort_options.best_selling'), allow_label_click: true
-      wait_for_turbo
-      expect(page).to have_css('.page-contents .product-card-title', count: 5)
+      sort_by Spree.t('products_sort_options.best_selling')
 
       expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
         product6.name,
@@ -209,10 +214,7 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
     end
 
     it 'can sort alphabetically A-Z' do
-      click_on 'sort-button'
-      choose Spree.t('products_sort_options.name_a_z'), allow_label_click: true
-      wait_for_turbo
-      expect(page).to have_css('.page-contents .product-card-title', count: 5)
+      sort_by Spree.t('products_sort_options.name_a_z')
 
       expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
         product6.name,
@@ -224,10 +226,7 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
     end
 
     it 'can sort alphabetically Z-A' do
-      click_on 'sort-button'
-      choose Spree.t('products_sort_options.name_z_a'), allow_label_click: true
-      wait_for_turbo
-      expect(page).to have_css('.page-contents .product-card-title', count: 5)
+      sort_by Spree.t('products_sort_options.name_z_a')
 
       expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
         product2.name,
@@ -257,10 +256,7 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
     end
 
     it 'can sort by newest' do
-      click_on 'sort-button'
-      choose Spree.t('products_sort_options.newest_first'), allow_label_click: true
-      wait_for_turbo
-      expect(page).to have_css('.page-contents .product-card-title', count: 5)
+      sort_by Spree.t('products_sort_options.newest_first')
 
       expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
         product6.name,
@@ -272,10 +268,7 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
     end
 
     it 'can sort by oldest' do
-      click_on 'sort-button'
-      choose Spree.t('products_sort_options.oldest_first'), allow_label_click: true
-      wait_for_turbo
-      expect(page).to have_css('.page-contents .product-card-title', count: 5)
+      sort_by Spree.t('products_sort_options.oldest_first')
 
       expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
         product1.name,
