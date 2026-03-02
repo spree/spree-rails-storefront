@@ -10,9 +10,9 @@ module Spree
           order_dir = order_direction == :desc ? 'DESC' : 'ASC'
 
           joins(
-            "LEFT JOIN spree_products_stores ON spree_products_stores.product_id = spree_products.id AND spree_products_stores.store_id = #{store_id.to_i}"
+            "LEFT JOIN spree_products_stores AS sps_best_selling ON sps_best_selling.product_id = spree_products.id AND sps_best_selling.store_id = #{store_id.to_i}"
           ).
-            select("spree_products.*, COALESCE(spree_products_stores.units_sold_count, 0) AS best_selling_units, COALESCE(spree_products_stores.revenue, 0) AS best_selling_revenue").
+            select("spree_products.*, COALESCE(sps_best_selling.units_sold_count, 0) AS best_selling_units, COALESCE(sps_best_selling.revenue, 0) AS best_selling_revenue").
             order(Arel.sql("best_selling_units #{order_dir}, best_selling_revenue #{order_dir}"))
         end
       end

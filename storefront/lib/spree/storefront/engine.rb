@@ -45,6 +45,12 @@ module Spree
         ENV['SPREE_STOREFRONT_PATH'] = root.to_s
       end
 
+      config.to_prepare do
+        Dir.glob(File.join(Spree::Storefront::Engine.root, 'app/**/*_decorator*.rb')) do |c|
+          Rails.configuration.cache_classes ? require(c) : load(c)
+        end
+      end
+
       config.after_initialize do
         Rails.application.config.spree_storefront.head_partials = []
         Rails.application.config.spree_storefront.body_start_partials = []
