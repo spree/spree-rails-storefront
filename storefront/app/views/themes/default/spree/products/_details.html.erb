@@ -26,15 +26,15 @@
       </div>
     <% end %>
 
-    <% shipping_policy = current_store.customer_shipping_policy %>
-    <% if shipping_policy.present? %>
+    <% shipping_policy = current_store.policies.find_by(slug: 'shipping-policy') %>
+    <% if shipping_policy&.with_body? %>
       <div class="product-property py-4 border-b border-default">
         <%= link_to "#property_shipping_policy", class: 'text-sm uppercase tracking-widest inline-flex w-full justify-between !border-b-transparent', data: { action: 'accordion#toggle' } do %>
           <%= Spree.t(:shipping_policy) %>
           <%= render 'spree/shared/icons/chevron_down' %>
         <% end %>
         <div class="text-sm st-accordion__content" data-accordion-id="property_shipping_policy">
-          <div class="pt-4"><%= shipping_policy %></div>
+          <div class="pt-4"><%= shipping_policy.body %></div>
         </div>
       </div>
     <% end %>
