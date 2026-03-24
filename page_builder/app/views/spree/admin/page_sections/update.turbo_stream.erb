@@ -8,7 +8,8 @@
     <%= render 'spree/admin/page_links/linkable_type_dropdown', page_link: @page_section.link, form_name: 'page_section[link_attributes]' %>
   <% end %>
 <% end %>
-<% if @page_section.can_be_hidden? && @page_section.previous_changes.key?('preferences') %>
+<% if @page_section.can_be_hidden? && @page_section.saved_change_to_preferences? &&
+      @page_section.saved_change_to_preferences[0][:visible] != @page_section.saved_change_to_preferences[1][:visible] %>
   <%= turbo_stream.replace dom_id(@page_section) do %>
     <%= render 'spree/admin/page_builder/sidebar_section', section: @page_section %>
   <% end %>
