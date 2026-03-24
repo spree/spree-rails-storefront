@@ -18,6 +18,12 @@
           </li>
         </ul>
         <div data-tabs-target="panel" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" class="animate-fade-in" <%= 'hidden' unless tab_selected == :content %>>
+          <% if @page_section.can_be_hidden? %>
+            <div class="form-group">
+              <%= f.check_box :preferred_visible, class: "checkbox-input", data: { action: 'auto-submit#submit' } %>
+              <%= f.label :preferred_visible, Spree.t('admin.page_builder.visible') %>
+            </div>
+          <% end %>
           <%= render "spree/admin/page_sections/forms/#{@page_section.type.demodulize.underscore}", f: f  %>
           <%= render 'spree/admin/page_sections/form_tab_buttons', tab: :content %>
         </div>

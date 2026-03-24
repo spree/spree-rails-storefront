@@ -37,6 +37,7 @@ en:
         title: Title
         top_padding: Top padding
         use_description_from_admin: Use description from admin
+        visible: Visible
         vertical_alignment: Vertical alignment
         youtube_video_url: Youtube video URL
     default_theme_name: Default Theme

@@ -28,6 +28,9 @@ module Spree
     def render_section(section, variables = {}, lazy_allowed: true)
       return '' if section.blank?
 
+      hidden = section.can_be_hidden? && !section.preferred_visible
+      return '' if hidden && !page_builder_enabled?
+
       variables[:section] = section
       variables[:loaded] = true
 
@@ -41,7 +44,8 @@ module Spree
               editor_id: css_id,
               editor_name: section.name,
               editor_link: spree.edit_admin_page_section_path(section)
-            }
+            },
+            style: (hidden ? 'opacity: 0.4;' : nil)
           ) do
             render('/' + section.to_partial_path, **variables)
           end

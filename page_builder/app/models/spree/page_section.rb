@@ -122,6 +122,10 @@ module Spree
       role == 'content'
     end
 
+    def can_be_hidden?
+      false
+    end
+
     def can_be_sorted?
       true
     end

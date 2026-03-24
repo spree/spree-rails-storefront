@@ -8,8 +8,14 @@ module Spree
       BOTTOM_PADDING_DEFAULT = 8
       TOP_BORDER_WIDTH_DEFAULT = 0
 
+      preference :visible, :boolean, default: true
+
       def self.role
         'header'
+      end
+
+      def can_be_hidden?
+        true
       end
 
       def icon_name

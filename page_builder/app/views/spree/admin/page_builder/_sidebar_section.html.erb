@@ -1,19 +1,21 @@
 <% if section.persisted? %>
+  <% section_hidden = section.can_be_hidden? && !section.preferred_visible %>
   <%= turbo_frame_tag dom_id(section), class: 'list-group-item py-0 border-0 sidebar-page-section draggable rounded-sm',
                                        data: { sortable_update_url: spree.admin_page_section_path(section, format: :turbo_stream) } do %>
-    <div class="flex items-center justify-between sidebar-section-title py-1 rounded-xl"
+    <div class="flex items-center justify-between sidebar-section-title py-1 rounded-xl <%= 'opacity-50' if section_hidden %>"
          data-action="mouseover->page-builder#toggleHighlightElement mouseout->page-builder#toggleHighlightElement"
       data-page-builder-editor-id-param="section-<%= section.id %>">
       <div class="flex items-center flex-1 py-1 px-2">
         <%= icon("#{section.icon_name}", height: 18, class: 'mr-2') if section.icon_name.present? %>
         <%= link_to section.display_name, spree.edit_admin_page_section_path(section),
-            class: 'section-edit-link flex-1 font-bold text-gray-900',
+            class: "section-edit-link flex-1 font-bold #{section_hidden ? 'text-gray-400' : 'text-gray-900'}",
             data: {
               turbo_frame: :page_sidebar,
               action: 'click->page-builder#makeOverlayActive',
               page_builder_editor_id_param: "section-#{section.id}"
             }
         %>
+        <%= icon('eye-off', height: 14, class: 'ml-1 text-gray-400') if section_hidden %>
       </div>
       <div class="flex items-center hidden">
         <button class="btn btn-sm pr-0 handle hover:bg-gray-100 h-full mr-1 px-1 handle-section shadow-none">
