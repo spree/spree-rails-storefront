@@ -8,6 +8,7 @@ module Spree
 
         def add_migrations
           run 'bundle exec rake railties:install:migrations FROM=spree_page_builder'
+          run 'bundle exec rake railties:install:migrations FROM=spree_posts'
         end
 
         def run_migrations
