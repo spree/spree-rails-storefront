@@ -13,7 +13,7 @@ RSpec.describe 'Product detail page', type: :feature do
 
   let!(:product) { create(:product_in_stock, taxons: [shoes, brand], description: 'Product description', price: 100.0, stores: [store]) }
 
-  let!(:color) { create(:option_type, name: 'color', presentation: 'Color') }
+  let!(:color) { create(:option_type, name: 'color', presentation: 'Color', kind: 'color_swatch') }
   let!(:black) { create(:option_value, option_type: color, name: 'black', presentation: 'Black') }
   let!(:red) { create(:option_value, option_type: color, name: 'red', presentation: 'Red') }
   let!(:white) { create(:option_value, option_type: color, name: 'white', presentation: 'White') }

@@ -1,4 +1,4 @@
-<% color_option = product.option_types.find { |option_type| option_type.color? } %>
+<% color_option = product.option_types.find { |option_type| option_type.color_swatch? } %>
 <% variants_with_color = product.variants.find_all { |variant| variant.option_values.find { |ov| ov.option_type_id == color_option.id } } if color_option.present? %>
 
 <% if color_option.present? && variants_with_color.length > 0 %>

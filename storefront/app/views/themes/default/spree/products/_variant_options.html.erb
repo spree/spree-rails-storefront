@@ -31,7 +31,7 @@
       <% end %>
     <% end %>
   <% end %>
-  <% if option_type.color? %>
+  <% if option_type.color_swatch? %>
     <li role="option" aria-label="<%= value.presentation %>">
       <label class="cursor-pointer"  aria-label="<%= value.presentation %>">
         <%= radio_button_tag option_type.presentation, value.name, selected_option == value,

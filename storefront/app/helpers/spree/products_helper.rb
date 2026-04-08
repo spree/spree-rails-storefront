@@ -82,9 +82,9 @@ module Spree
           selected_variant.option_values.find { |ov| ov.option_type_id == option_type.id }
         elsif product_selected_options_hash.present? && product_selected_options_hash[option_type.id.to_s].present? # user selected variant which is not available
           option_type.option_values.find { |v| v.name == product_selected_options_hash[option_type.id.to_s] }
-        elsif option_type.color? && (available_variant = product.first_available_variant(current_currency))
+        elsif option_type.color_swatch? && (available_variant = product.first_available_variant(current_currency))
           available_variant.option_values.find { |ov| ov.option_type_id == option_type.id }
-        elsif option_type.color? && product.first_available_variant(current_currency).nil?
+        elsif option_type.color_swatch? && product.first_available_variant(current_currency).nil?
           product.variants.first&.option_values&.find { |ov| ov.option_type_id == option_type.id }
         end
     end
@@ -226,7 +226,7 @@ module Spree
     end
 
     def option_type_colors_preview_styles(option_type)
-      return unless option_type.color?
+      return unless option_type.color_swatch?
 
       Spree::ColorsPreviewStylesPresenter.new(option_type.option_values.map { |ov| { name: ov.name, filter_name: ov.name } }).to_s
     end

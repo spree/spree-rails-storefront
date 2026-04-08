@@ -48,7 +48,7 @@ module Spree
             variant = @product.variants.find(variant_id)
             @variant_from_options = variant
             @selected_variant = variant
-          elsif product_option_types.size == 1 && product_option_types.first.color?
+          elsif product_option_types.size == 1 && product_option_types.first.color_swatch?
             @selected_variant = @variant_from_options = @product.variants.find { |v| v.purchasable? && v.price_in(current_currency).amount.present? }
           elsif @product.variants.size == 1 || product_has_only_one_secondary_option_type_value?
             @variant_from_options = @product.variants.first
@@ -64,7 +64,7 @@ module Spree
 
       def product_has_only_one_secondary_option_type_value?
         return false unless product_option_types.size == 2
-        return false unless product_option_types.first.color?
+        return false unless product_option_types.first.color_swatch?
 
         @product.
           option_values.
