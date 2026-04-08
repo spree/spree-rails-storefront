@@ -60,7 +60,7 @@ module Spree
       return @page_image if @page_image.present?
 
       if object.is_a? Spree::Product
-        @page_image = object.default_image&.attachment
+        @page_image = object.primary_media&.attachment
       elsif object.respond_to?(:image)
         @page_image = object.image
       end

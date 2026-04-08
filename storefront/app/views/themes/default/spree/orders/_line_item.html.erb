@@ -2,7 +2,7 @@
   <li class="cart-line-item flex items-top py-6 px-4 w-full">
     <div class="line-item-overlay"></div>
       <div class="cart-product-image shrink-0" id="<%= dom_id(line_item) %>-image" data-turbo-permanent>
-        <% image = line_item.variant.default_image %>
+        <% image = line_item.variant.primary_media %>
         <% if image.present? && image.attached? && image.variable? %>
           <%= link_to spree_storefront_resource_url(line_item.product), data: { 'turbo-frame': '_top' } do %>
             <%= spree_image_tag(image, width: 128, height: 128, variant: :small, class: 'object-cover', loading: :lazy) %>

@@ -3,7 +3,7 @@
     <span class="rounded-full text-xs text-center font-bold pl-[0.5px] py-1 w-6 text-sidebar-text bg-background absolute -right-2 -top-3">
       <%= line_item.quantity %>
     </span>
-    <% image = line_item.variant.default_image %>
+    <% image = line_item.variant.primary_media %>
     <% if image.present? && image.attached? && image.variable? %>
       <%= spree_image_tag(image, class: 'rounded-sm border border-default bg-transparent object-cover object-center', loading: :lazy, variant: :mini, width: 64, height: 64) %>
     <% else %>

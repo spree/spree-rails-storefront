@@ -3,7 +3,7 @@
 <div class="flex flex-col gap-4">
   <div class="flex gap-4">
     <div class="shrink-0">
-      <% image = line_item.variant.default_image %>
+      <% image = line_item.variant.primary_media %>
       <% if image.present? && image.attached? && image.variable? %>
         <%= link_to spree_storefront_resource_url(line_item.product, relative: true) do %>
           <%= spree_image_tag(image, width: 128, height: 128, variant: :small, loading: :lazy) %>

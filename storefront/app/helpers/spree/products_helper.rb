@@ -112,7 +112,7 @@ module Spree
       end
 
       images << product.master&.images&.to_a
-      images << product.default_image if images.flatten.compact.empty?
+      images << product.primary_media if images.flatten.compact.empty?
 
       images.flatten.compact.uniq(&:id)
     end
