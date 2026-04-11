@@ -15,7 +15,7 @@
   </div>
   <br />
 
-  <% unless current_store.default_custom_domain&.active? %>
+  <% if current_store.respond_to?(:default_custom_domain) && !current_store.default_custom_domain&.active? %>
     <div class="alert alert-info inline-flex items-center py-2 pr-2">
       <div class="flex items-center">
         <span>

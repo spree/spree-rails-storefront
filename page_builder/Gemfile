@@ -21,7 +21,7 @@ spree_opts = if ENV['SPREE_PATH']
 gem 'spree', spree_opts
 gem 'spree_admin', spree_opts
 
-gem 'spree_multi_store', github: 'spree/spree-multi-store', branch: 'main'
+gem 'spree_multi_store', github: 'spree/spree-multi-store', branch: 'main' unless ENV['DISABLE_SPREE_MULTI_STORE'] == 'true'
 gem 'spree_posts', github: 'spree/spree-posts', branch: 'main'
 gem 'spree_dev_tools', '>= 0.6.0.rc1'
 
