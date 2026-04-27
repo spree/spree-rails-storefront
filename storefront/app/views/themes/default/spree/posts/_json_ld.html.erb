@@ -1,20 +1,16 @@
-<script type="application/ld+json" data-test-id="post-json-ld">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "<%= post.title %>",
-    "image": <%= post.image.attached? ? [spree_image_url(post.image, width: 1200, height: 675)].to_json.html_safe : [].to_json.html_safe %>,
-    "datePublished": "<%= post.published_at&.iso8601 %>",
-    "dateModified": "<%= post.updated_at&.iso8601 %>",
-    "author": [
-      {
-        "@type": "Person",
-        "name": "<%= post.author_name %>"
-      }
-    ]
-  }
-</script>
+<%= json_ld_script({
+  '@context' => 'https://schema.org',
+  '@type' => 'BlogPosting',
+  'headline' => post.title,
+  'image' => post.image.attached? ? [spree_image_url(post.image, width: 1200, height: 675)] : [],
+  'datePublished' => post.published_at&.iso8601,
+  'dateModified' => post.updated_at&.iso8601,
+  'author' => [
+    {
+      '@type' => 'Person',
+      'name' => post.author_name
+    }
+  ]
+}, data: { test_id: 'post-json-ld' }) %>
 
-<script type="application/ld+json" data-test-id="post-breadcrumbs-json-ld">
-  <%= posts_json_ld_breadcrumbs(post).to_json.html_safe %>
-</script>
+<%= json_ld_script(posts_json_ld_breadcrumbs(post), data: { test_id: 'post-breadcrumbs-json-ld' }) %>
