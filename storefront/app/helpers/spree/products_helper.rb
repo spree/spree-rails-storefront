@@ -252,7 +252,7 @@ module Spree
     end
 
     def product_json_ld_variant_offer(product, variant)
-      Rails.cache.fetch(['json-ld-variant-hash', spree_base_cache_scope, variant.cache_key_with_version]) do
+      Rails.cache.fetch(['json-ld-variant-hash', *spree_base_cache_key, variant.cache_key_with_version]) do
         offer = {
           '@type' => 'Offer',
           'availability' => "http://schema.org/#{variant.available? ? 'InStock' : 'OutOfStock'}",
