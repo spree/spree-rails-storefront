@@ -1,5 +1,7 @@
 module Spree
   class ColorsPreviewStylesPresenter
+    UNSAFE_CSS_CHARS = /[<>"'\\;{}\r\n]/
+
     def initialize(colors)
       @colors = colors.compact_blank.map do |color|
         case color
@@ -17,11 +19,11 @@ module Spree
     end
 
     def to_s
-      @to_s ||= if colors.any?
+      @to_s ||= if renderable_colors.any?
                   css = ['<style>']
 
-                  colors.each do |color|
-                    css_color = css_colors_hash[color[:filter_name]] || color[:filter_name].gsub(' ', '')
+                  renderable_colors.each do |color|
+                    css_color = css_colors_hash[color[:filter_name]]
                     color_name = color[:name]
                     css << <<~CSS
                        @supports(background: #{css_color}) {
@@ -48,6 +50,17 @@ module Spree
 
     attr_reader :colors
 
+    # We only emit CSS rules for colors we recognise via Spree::ColorNames AND whose
+    # name contains no characters that could break out of the CSS string/selector
+    # context (admins control these names; #to_s output is rendered with raw()).
+    def renderable_colors
+      @renderable_colors ||= colors.reject do |color|
+        css_colors_hash[color[:filter_name]].nil? ||
+          color[:name].match?(UNSAFE_CSS_CHARS) ||
+          color[:filter_name].match?(UNSAFE_CSS_CHARS)
+      end
+    end
+
     def css_colors_hash
       @css_colors_hash ||= begin
         colors_hash = {}
@@ -61,7 +74,7 @@ module Spree
             colors_hash[color_name] = generate_css_color(hex_colors)
           elsif (subcolors = color_name.split.compact) && subcolors.length > 1
             subcolors = subcolors.map(&method(:find_color)).compact
-            colors_hash[color_name] = generate_css_color(subcolors)
+            colors_hash[color_name] = generate_css_color(subcolors) if subcolors.any?
           end
         end
 

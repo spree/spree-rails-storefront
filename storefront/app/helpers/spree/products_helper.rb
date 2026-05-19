@@ -225,6 +225,46 @@ module Spree
       json_ld
     end
 
+    def product_json_ld_data(product, selected_variant: nil)
+      first_or_default_variant = product.first_or_default_variant(current_currency)
+      data = {
+        '@context' => 'https://schema.org/',
+        '@type' => 'Product',
+        'name' => product.name,
+        'url' => spree.product_url(product, host: current_store.url_or_custom_domain)
+      }
+      data['image'] = [spree_image_url(product.primary_media, variant: :large)] if product.has_images?
+      data['description'] = strip_tags(product.description) if product.description.present?
+
+      sku_variant = product.has_variants? ? selected_variant : first_or_default_variant
+      data['sku'] = sku_variant.sku if sku_variant&.sku.present?
+
+      if product.brand_taxon
+        data['brand'] = { '@type' => 'Brand', 'name' => product.brand_taxon.name }
+      end
+
+      data['offers'] = if product.has_variants?
+                         product.variants.map { |variant| product_json_ld_variant_offer(product, variant) }
+                       else
+                         [product_json_ld_variant_offer(product, first_or_default_variant)]
+                       end
+      data
+    end
+
+    def product_json_ld_variant_offer(product, variant)
+      Rails.cache.fetch(['json-ld-variant-hash', *spree_base_cache_key, variant.cache_key_with_version]) do
+        offer = {
+          '@type' => 'Offer',
+          'availability' => "http://schema.org/#{variant.available? ? 'InStock' : 'OutOfStock'}",
+          'price' => variant.amount_in(current_currency),
+          'priceCurrency' => current_currency,
+          'url' => spree.product_url(product, variant_id: variant.id, host: current_store.url_or_custom_domain)
+        }
+        offer['sku'] = variant.sku if variant.sku.present?
+        offer
+      end
+    end
+
     def option_type_colors_preview_styles(option_type)
       return unless option_type.color_swatch?
 

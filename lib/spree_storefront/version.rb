@@ -1,3 +1,3 @@
 module SpreeStorefront
-  VERSION = '5.4.1'.freeze
+  VERSION = '5.4.3'.freeze
 end

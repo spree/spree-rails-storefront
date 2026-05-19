@@ -49,13 +49,13 @@ module Spree
           define_method "#{social}_link" do
             return if send(social).blank?
 
-            send(social).match(/http/) ? send(social) : SOCIAL_NETWORKS_CONFIG[social.to_sym][:profile_link].gsub(/your_handle|your_page|your_channel/, send(social).sub(/^\//, '').sub(/^@/, ''))
+            send(social).match?(%r{\Ahttps?://}i) ? send(social) : SOCIAL_NETWORKS_CONFIG[social.to_sym][:profile_link].gsub(/your_handle|your_page|your_channel/, send(social).sub(/^\//, '').sub(/^@/, ''))
           end
 
           define_method "#{social}_handle" do
             return if send(social).blank?
 
-            (send(social).match(/http/) ? send(social).split('/').last : send(social)).sub(/^\//, '').gsub('@', '').split('?').first
+            (send(social).match?(%r{\Ahttps?://}i) ? send(social).split('/').last : send(social)).sub(/^\//, '').gsub('@', '').split('?').first
           end
         end
       end
