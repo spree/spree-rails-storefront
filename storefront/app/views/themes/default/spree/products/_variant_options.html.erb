@@ -1,74 +1,70 @@
-<% selected_option =
-  product_selected_option_for_option(
-    option_type,
-    product: product,
-    selected_variant: selected_variant,
-    options_param_name: options_param_name,
-  ) %>
-<% variants_available_arr =
-  product.variants.map do |v|
-    v.purchasable? && v.price_in(current_currency).amount.present?
-  end %>
+<%# app/views/themes/default/spree/products/_variant_options.html.erb %>
+<% selected_option = product_selected_option_for_option(option_type, product: product, selected_variant: selected_variant, options_param_name: options_param_name) %>
+
+<% variants_available_arr = product.variants.map { |v| v.purchasable? && v.price_in(current_currency).amount.present? } %>
 <% variants_option1_arr = product.variants.map { |v| v.options.first&.dig(:value) } %>
-<% variants_option2_arr =
-  product.variants.map { |v| v.options.second&.dig(:value) } %>
+<% variants_option2_arr = product.variants.map { |v| v.options.second&.dig(:value) } %>
 <% variants_option3_arr = product.variants.map { |v| v.options.third&.dig(:value) } %>
+
 <% product_option_values_for_option(option_type, product: product).each_with_index do |value, index| %>
   <% option_disabled = true %>
-  <% variants_option1_arr.each_with_index do |option1_name, index| %>
+  <% variants_option1_arr.each_with_index do |option1_name, idx| %>
     <% case position %>
     <% when 0 %>
-      <% if option1_name == value.name && variants_available_arr[index] %>
+      <% if option1_name == value.name && variants_available_arr[idx] %>
         <% option_disabled = false %>
       <% end %>
     <% when 1 %>
-      <% if product_selected_option_for_option(product.option_types[0], product: product, options_param_name: options_param_name)&.name == option1_name && variants_option2_arr[index] == value.name && variants_available_arr[index] %>
+      <% if product_selected_option_for_option(product.option_types[0], product: product, options_param_name: options_param_name)&.name == option1_name && variants_option2_arr[idx] == value.name && variants_available_arr[idx] %>
         <% option_disabled = false %>
       <% end %>
     <% when 2 %>
-      <% if product_selected_option_for_option(product.option_types[0], product: product, options_param_name: options_param_name)&.name == option1_name && variants_option2_arr[index] == product_selected_option_for_option(product.option_types[1], product: product, options_param_name: options_param_name)&.name && variants_option3_arr[index] == value.name && variants_available_arr[index] %>
+      <% if product_selected_option_for_option(product.option_types[0], product: product, options_param_name: options_param_name)&.name == option1_name && variants_option2_arr[idx] == product_selected_option_for_option(product.option_types[1], product: product, options_param_name: options_param_name)&.name && variants_option3_arr[idx] == value.name && variants_available_arr[idx] %>
         <% option_disabled = false %>
       <% end %>
     <% end %>
   <% end %>
-  <% if option_type.color_swatch? %>
+
+  <% if option_type.kind == 'color_swatch' %>
     <li role="option" aria-label="<%= value.presentation %>">
-      <label class="cursor-pointer"  aria-label="<%= value.presentation %>">
+      <label class="cursor-pointer" aria-label="<%= value.presentation %>">
         <%= radio_button_tag option_type.presentation, value.name, selected_option == value,
-          name: option_type.presentation,
-          id: "product-option-#{product.id}-#{position}-#{index}",
-          class: "sr-only peer color-input",
-          data: {
-            action: 'change->product-form#updateVariant',
-            product_form_target: 'option',
-            option_id: option_type.id
-          }
-        %>
+              name: option_type.presentation,
+              id: "product-option-#{product.id}-#{position}-#{index}",
+              class: "sr-only peer color-input",
+              disabled: option_disabled,
+              data: { action: 'change->product-form#updateVariant', product_form_target: 'option', option_id: option_type.id } %>
         <%= render 'spree/products/color_picker', disabled: option_disabled %>
       </label>
     </li>
+
+  <% elsif option_type.kind == 'buttons' %>
+    <label for="product-option-<%= product.id %>-<%= position %>-<%= index %>" 
+           class="w-max min-w-[48px] text-center py-2 px-4 text-sm font-medium normal-case transition-all cursor-pointer border rounded-input leading-tight
+                  <%= selected_option == value ? 'btn-primary border-transparent !py-2 !px-4 !font-medium !normal-case' : 'border-default text-default bg-background hover:bg-accent' %>
+                  <%= 'opacity-40 cursor-not-allowed' if option_disabled %>">
+      <%= radio_button_tag option_type.presentation, value.name, selected_option == value,
+            id: "product-option-#{product.id}-#{position}-#{index}",
+            class: "sr-only",
+            disabled: option_disabled,
+            data: { action: 'change->product-form#updateVariant', product_form_target: 'option', option_id: option_type.id } %>
+      <%= value.presentation %>
+    </label>
+
   <% else %>
     <%= radio_button_tag option_type.presentation, value.name, selected_option == value,
-      class: class_names('hidden', {'peer/unavailable' => selected_variant.nil?, 'peer/available' => selected_variant.present?}),
-      data: {
-        action: 'change->product-form#updateVariant',
-        product_form_target: 'option',
-        option_id: option_type.id
-      },
-      name: option_type.presentation,
-      role: 'menuitemradio',
-      aria: { label: value.presentation },
-      id: "product-option-#{product.id}-#{position}-#{index}"
-    %>
+          class: "sr-only",
+          data: { action: 'change->product-form#updateVariant', product_form_target: 'option', option_id: option_type.id },
+          name: option_type.presentation,
+          id: "product-option-#{product.id}-#{position}-#{index}",
+          disabled: option_disabled %>
     <label
       for='product-option-<%= product.id %>-<%= position %>-<%= index %>'
-      role="menuitem"
-      aria-label="<%= value.presentation %>"
-      class='text-sm cursor-pointer flex items-center justify-between px-4 py-2.5 hover:bg-accent focus:outline-hidden focus:bg-accent transition duration-150 ease-in-out <%= option_disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-accent" %>'
+      class='text-sm cursor-pointer flex items-center justify-between px-4 py-3 hover:bg-accent transition duration-150 <%= option_disabled ? "opacity-50 cursor-not-allowed" : "" %> <%= selected_option == value ? "bg-accent/50 font-bold" : "" %>'
     >
-      <p><%=h value.presentation %></p>
+      <span><%= value.presentation %></span>
       <% if selected_option == value %>
-        <%= render 'spree/shared/icons/check', size: 18 %>
+        <%= render 'spree/shared/icons/check', size: 16 %>
       <% end %>
     </label>
   <% end %>
