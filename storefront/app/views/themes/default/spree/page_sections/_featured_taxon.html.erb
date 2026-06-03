@@ -35,7 +35,7 @@
               </div>
             <% end %>
           </div>
-          <% if section.taxon.present? %>
+          <% if section.taxon.present? && section.preferred_show_more_button %>
             <%= link_to spree_storefront_resource_url(section.taxon), class: class_names(section.preferred_button_style == "primary" ? "btn-primary" : "btn-secondary", " text-center hidden md:inline-block"), data: { turbo_frame: '_top' } do %>
               <%= section.preferred_button_text %>
             <% end %>
