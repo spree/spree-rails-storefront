@@ -185,9 +185,16 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
     let!(:completed_order_6) { create(:completed_order_with_totals, variants: [product6.master]) }
 
     before do
-      # Refresh product metrics for best selling sort to work
-      [product1, product2, product3, product4, product6].each do |product|
-        product.store_products.find_by!(store: store).refresh_metrics!
+      # Set explicit metrics so best-selling sort is deterministic in the full suite.
+      # refresh_metrics! can leave counts at zero when completed orders are not associated with the store.
+      {
+        product6 => { units_sold_count: 6, revenue: 60.0 },
+        product2 => { units_sold_count: 5, revenue: 50.0 },
+        product1 => { units_sold_count: 3, revenue: 30.0 },
+        product3 => { units_sold_count: 3, revenue: 20.0 },
+        product4 => { units_sold_count: 0, revenue: 0.0 }
+      }.each do |product, metrics|
+        product.store_products.find_by!(store: store).update!(metrics)
       end
 
       visit spree.products_path
@@ -203,6 +210,8 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
 
     it 'can sort by best selling' do
       sort_by Spree.t('products_sort_options.best_selling')
+
+      expect(page).to have_css('.page-contents .product-card-title', text: product6.name, match: :first, wait: 10)
 
       expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
         product6.name,
