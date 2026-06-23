@@ -8,7 +8,7 @@ describe Spree::CheckoutController, type: :controller do
   end
   let(:accept_marketing) { true }
   let(:country) { store.default_country || create(:country_us) }
-  let!(:state) { create(:state, country: country, name: 'New York', abbr: 'NY') }
+  let!(:state) { country.states.find_by(name: 'New York') || create(:state, country: country, name: 'New York', abbr: 'NY') }
   let(:user) { nil }
   let(:order) { create(:order_with_totals, store: store, user: user, email: 'example@email.com') }
 
@@ -428,7 +428,7 @@ describe Spree::CheckoutController, type: :controller do
         end
 
         context 'with shipping address (with delivery step)' do
-          let(:ship_address) { create(:address, user: user, country: country, state: state) }
+          let(:ship_address) { create(:address, user: user, country: country, state: state, city: 'Herndon') }
 
           context 'when all addresses attributes are nil' do
             let!(:ship_address_params) { nil }
@@ -607,7 +607,7 @@ describe Spree::CheckoutController, type: :controller do
         end
 
         describe 'special instructions' do
-          let(:ship_address) { create(:address, user: user, country: country, state: state) }
+          let(:ship_address) { create(:address, user: user, country: country, state: state, city: 'Herndon') }
           let(:special_instructions) { "Please leave at the front door.\nKnock on the door." }
           let(:ship_address_params) { order.ship_address.attributes.except(:user_id, :created_at, :updated_at) }
           let(:update_params) do
@@ -650,7 +650,7 @@ describe Spree::CheckoutController, type: :controller do
           order.reload
         end
 
-        let(:ship_address) { create(:address, user: user, country: country, state: state) }
+        let(:ship_address) { create(:address, user: user, country: country, state: state, city: 'Herndon') }
         let(:update_params) do
           {
             token: order.token,
@@ -1012,7 +1012,7 @@ describe Spree::CheckoutController, type: :controller do
 
     context 'same as shipping' do
       let(:user) { create(:user) }
-      let(:ship_address) { create(:address, user: user, country: country, state: state) }
+      let(:ship_address) { create(:address, user: user, country: country, state: state, city: 'Herndon') }
       let(:order) { create(:order_with_line_items, state: 'payment', store: store, bill_address: nil, ship_address: ship_address, user: user) }
 
       context 'same as shipping' do

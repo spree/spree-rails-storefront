@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Spree::AddressesController, type: :controller do
   let(:store) { @default_store }
   let(:country) { store.default_country || create(:country_us) }
-  let(:state) { create(:state, country: country, name: 'New York', abbr: 'NY') }
+  let(:state) { country.states.find_by(name: 'New York') || create(:state, country: country, name: 'New York', abbr: 'NY') }
   let(:user) { create(:user) }
   let(:order) { create(:order_with_totals, store: store) }
   let(:default_billing) { 'true' }
@@ -319,7 +319,7 @@ end
 describe Spree::AddressesController, 'security', type: :controller do
   let(:store) { @default_store }
   let(:country) { store.default_country || create(:country_us) }
-  let(:state) { create(:state, country: country, name: 'New York', abbr: 'NY') }
+  let(:state) { country.states.find_by(name: 'New York') || create(:state, country: country, name: 'New York', abbr: 'NY') }
   let(:user) { create(:user) }
 
   render_views

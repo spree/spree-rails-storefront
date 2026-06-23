@@ -38,6 +38,9 @@ en:
           label: Display the special instructions field
       markets:
         list: Markets
+      page_builder:
+        maximum_posts_to_show: Maximum posts to show
+        visible: Visible
       store_form:
         company_field:
           description: It shows the company field on the address form in the My Account section and on the checkout address step.
@@ -104,6 +107,8 @@ en:
     index_in_search_engines: Index in search engines
     internal_server_error: Internal Server Error
     internal_server_error_message: The server encountered an internal error and was unable to complete your request.
+    mega_nav: Mega nav
+    mega_nav_with_subcategories: Mega nav with subcategories
     minimum_password_length:
       one: "(%{count} character minimum)"
       other: "(%{count} characters minimum)"
@@ -210,6 +215,9 @@ en:
       void: Void
     personal_details: Personal details
     place_order: Place Order
+    policy: Policy
+    post: Post
+    posts: Posts
     product_details: Product Details
     product_sold_out: This item is sold out
     products_sort_options:
@@ -349,8 +357,6 @@ en:
     successfully_created: "%{resource} has been successfully created!"
     successfully_removed: "%{resource} has been successfully removed!"
     successfully_updated: "%{resource} has been successfully updated!"
-    taxonomy_categories_name: Categories
-    taxonomy_collections_name: Collections
     text_alignment: Text alignment
     theme_copied: Theme has been successfully copied.
     theme_is_now_live: Theme is now live

@@ -187,7 +187,7 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
     before do
       # Refresh product metrics for best selling sort to work
       [product1, product2, product3, product4, product6].each do |product|
-        product.store_products.find_by(store: store)&.refresh_metrics!
+        product.store_products.find_by!(store: store).refresh_metrics!
       end
 
       visit spree.products_path
