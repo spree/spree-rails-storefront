@@ -1,6 +1,28 @@
 ---
 en:
   spree:
+    actions:
+      cancel: Cancel
+      destroy: Delete
+      discard: Discard
+      publish: Publish
+      save: Save
+      update: Update
+    add_address: Add address
+    add_link: Add link
+    add_new_credit_card: Add a new card
+    add_new_page: Add new page
+    add_page_block: Add Block
+    add_section: Add section
+    add_to_cart: Add To Cart
+    add_to_waitlist: Add to waitlist
+    add_to_waitlist_description: Add to waitlist description
+    address_book:
+      set_as_default_billing_address: Set as default billing address
+      set_as_default_delivery_address: Set as default delivery address
+      successfully_created: Address has been successfully created.
+      successfully_removed: Address has been successfully removed.
+      successfully_updated: Updated successfully
     admin:
       checkout_settings:
         checkout_links:
@@ -22,8 +44,219 @@ en:
           label: Display the company address field
     all_posts: All Posts
     all_posts_with_tag: All Posts tagged with %{tag}
+    all_rights_reserved: All rights reserved
+    alt_text: Alternative Text
+    are_you_sure: Are you sure?
+    authorization_failure: Authorization Failure
+    automatic_taxon_names:
+      new_arrivals: New arrivals
+      on_sale: On sale
     blog: Blog
+    breadcrumbs: Breadcrumbs
+    card_expiration_placeholder: MM/YYYY
+    cart_page:
+      add_promo_code: ADD PROMO CODE
+      empty_info: Your cart is empty.
+    change_password: Change password
+    changes_published: Changes published!
+    checkout_message: Checkout message
+    close_sidebar: Close sidebar
+    confirm_delete: Confirm Deletion
+    confirm_password: Password Confirmation
+    contact_information: Contact information
+    contact_us: Contact us
+    container_alignment: Container alignment
+    continue_as_guest: Continue as a guest
+    continue_without_logging_in: Continue without logging in
+    copied: Copied!
+    create_a_new_account: Create a new account
+    custom_code: Custom code
+    custom_domains: Custom domains
+    custom_font_code: Custom font code
+    default_theme_name: Default
+    delete_address: Delete address
+    delivery_address: Delivery Address
+    didn_t_receive_confirmation_instructions: Didn't receive confirmation instructions?
+    didn_t_receive_unlock_instructions: Didn't receive unlock instructions?
+    digital_link_unauthorized: You are not authorized to access this asset
+    domains: Domains
+    edit_address: Edit address
+    enter_using_password: Enter using password
+    errors:
+      messages:
+        no_shipping_methods_available: No shipping methods available for selected location, please change your address and try again.
+    expiration_date: Expiration Date
+    explore_taxon: Explore taxon
+    favicon: Favicon
+    featured_taxon: Featured taxon
+    find_your_order: Find your order
+    follow_us: Follow us
+    font_family: Font family
+    font_size_scale: Font size scale
+    forbidden_message: You are not authorized to access this page.
+    forgot_password: Forgot password?
+    header_font_family: Header font family
+    header_font_size_scale: Header font size scale
+    homepage: Homepage
+    i18n:
+      language: Language
+      localization_settings: Localization Settings
+    index_in_search_engines: Index in search engines
+    internal_server_error: Internal Server Error
+    internal_server_error_message: The server encountered an internal error and was unable to complete your request.
+    minimum_password_length:
+      one: "(%{count} character minimum)"
+      other: "(%{count} characters minimum)"
+    move_down: Move down
+    move_up: Move up
+    my_addresses: My addresses
+    name_on_card: Name on card
+    new_balance: New balance
+    new_page: New Page
+    new_password: New password
+    newsletters: Newsletters
+    no_products_found: No products found
+    no_resource_found: No %{resource} found
+    no_tracking_present: No tracking details provided.
+    not_subscribed: Not subscribed
+    notify_me_when_available: Notify me when available
+    only_left: Only %{count} left
+    order_again: Order again
     order_already_updated: The order has already been updated.
+    order_details: Order Details
+    order_state:
+      address: address
+      awaiting_return: awaiting return
+      canceled: canceled
+      cart: cart
+      complete: complete
+      confirm: confirm
+      considered_risky: considered risky
+      delivery: delivery
+      payment: payment
+      resumed: resumed
+      returned: returned
+    order_status: Order status
+    order_success: Order placed successfully
+    page_blocks:
+      buttons:
+        display_name: Button
+      link:
+        display_name: Link
+      nav:
+        label_default: Menu
+      newsletter_form:
+        button_text_default: Submit
+        placeholder_default: Enter your email
+      products:
+        buy_buttons:
+          display_name: Add To Cart
+    page_not_found: Sorry! Page you are looking can’t be found.
+    page_not_found_message: This page just doesn't exist.
+    page_sections:
+      announcement_bar:
+        default_text: Welcome to my Store!
+      featured_taxon:
+        button_text_default: Explore category
+        heading_default: Beloved products
+      featured_taxons:
+        heading_default: Shop by category
+      image_banner:
+        heading_default: Welcome to your website
+        text_default: This is the place to tell people about your business and what you do.
+      image_with_text:
+        heading_default: Welcome to our shop!
+        text_default: At %{store_name} we offer a wide range of products for your home and business.
+      newsletter:
+        heading_default: Subscribe to our newsletter
+        text_default: Thank you for choosing us as your trusted online shopping destination.
+      page_title:
+        display_name: Page Title
+      related_products:
+        heading_default: You might also like
+      rich_text:
+        heading_default: This is a heading
+        text_default: This is a paragraph of text
+      taxon_grid:
+        heading_default: Brands we work with
+      video:
+        heading_1_default: Why I recommend it?
+        heading_2_default: There's nothing like a soft hint of blush to add dimension and color to your look.
+    pages_defaults:
+      homepage:
+        featured_taxon_heading_new_arrivals: New arrivals
+        featured_taxon_heading_on_sale: On sale
+        image_with_text_heading: About us
+        image_with_text_text: Welcome to our shop! We carefully curate high-quality products that we believe in. Our process involves rigorous testing and selection to ensure we only offer items that meet our standards. We're passionate about delivering exceptional value and service to our customers.
+      password:
+        newsletter_heading: Opening soon
+        newsletter_text: Be the first one to know when we launch.
+    pagination:
+      truncate: "&hellip;"
+    password_protected: Password protected
+    payment_information: Payment Information
+    payment_states:
+      balance_due: Balance Due
+      checkout: Checkout
+      complete: Complete
+      completed: Completed
+      credit_owed: Credit Owed
+      failed: Failed
+      paid: Paid
+      partially_refunded: Partially Refunded
+      pending: Pending
+      processing: Processing
+      refunded: Refunded
+      void: Void
+    personal_details: Personal details
+    place_order: Place Order
+    product_details: Product Details
+    product_sold_out: This item is sold out
+    products_sort_options:
+      best_selling: Best Selling
+      name_a_z: Alphabetically, A-Z
+      name_z_a: Alphabetically, Z-A
+      newest_first: Newest
+      oldest_first: Oldest
+      price_high_to_low: Price (high-low)
+      price_low_to_high: Price (low-high)
+      relevance: Relevance
+    read_less: Read less
+    read_more: Read more
+    regular_price: Regular price
+    restore_defaults: Restore defaults
+    sale_price: Sale price
+    save_and_continue: Save and Continue
+    search_all: Search all
+    search_results: Search results for '%{keywords}'
+    search_results_for: Search results for %{query}
+    searching: Searching
+    send_message: Send message
+    send_us_a_message: Send us a message
+    seo_robots: SEO Robots
+    server_error: The server returned an error
+    service_unavailable: Service Unavailable
+    service_unavailable_message: The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.
+    shipment_refunded_message: You will receive a refund in the next few days.
+    shipment_states:
+      backorder: Backorder
+      canceled: Canceled
+      partial: Partial
+      pending: Pending
+      ready: Ready
+      shipped: Shipped
+    shipped_from: Shipped from
+    shipping_not_available: Shipping not available
+    shipping_total: Shipping total
+    shop_all: Shop All
+    show_all: Show all
+    show_less: Show less
+    sign_in_with_provider: Sign in with %{provider}
+    sign_out: Sign out
+    social_media: Social media
+    sold_out: Sold out
+    something_went_wrong: Something went wrong
+    spree_gateway_error_flash_for_checkout: There was a problem with your payment information. Please check your information and try again.
     storefront:
       account:
         change_password: Change password
@@ -113,3 +346,38 @@ en:
         remove_error: You already removed this item from your wishlist
         select_variant: Select variant to add to wishlist
         unavailable: Unavailable
+    successfully_created: "%{resource} has been successfully created!"
+    successfully_removed: "%{resource} has been successfully removed!"
+    successfully_updated: "%{resource} has been successfully updated!"
+    taxonomy_categories_name: Categories
+    taxonomy_collections_name: Collections
+    text_alignment: Text alignment
+    theme_copied: Theme has been successfully copied.
+    theme_is_now_live: Theme is now live
+    theme_not_copied: 'Theme could not be copied with errors: %{error}'
+    theme_settings:
+      accent_color: Accent color
+      background_color: Background color
+      border_color: Border color
+      brand_color: Brand color
+      button_border_color: Button border color
+      button_text_color: Button text color
+      danger_color: Danger color
+      input_text_color: Input text color
+      neutral_color: Neutral color
+      success_color: Success color
+      text_color: Text color
+    title_link: Title link
+    toggle_menu: Toggle menu
+    top_suggestions: Top suggestions
+    track_items: Track items
+    try_removing_filters: Try removing some filters to see more products
+    unlock: Unlock
+    unprocessable_entity: Unprocessable Entity
+    unprocessable_entity_message: Your request could not be processed. Please check the form for errors and try again.
+    use_shipping_address: Use Shipping Address
+    vendors: Vendors
+    view_all: View all
+    view_full_details: View full details
+    view_store: View store
+    view_your_store: View your store
