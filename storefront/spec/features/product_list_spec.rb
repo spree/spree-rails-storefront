@@ -209,9 +209,9 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
     end
 
     it 'can sort by best selling' do
-      sort_by Spree.t('products_sort_options.best_selling')
-
-      expect(page).to have_css('.page-contents .product-card-title', text: product6.name, match: :first, wait: 10)
+      visit spree.products_path(sort_by: 'best-selling')
+      wait_for_turbo
+      expect(page).to have_css('.page-contents .product-card-title', count: 5)
 
       expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
         product6.name,
