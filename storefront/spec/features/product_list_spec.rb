@@ -177,26 +177,7 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
   end
 
   describe 'sorting' do
-    let!(:completed_order_1) { create(:completed_order_with_totals, variants: [product1.master, product2.master, product3.master, product6.master]) }
-    let!(:completed_order_2) { create(:completed_order_with_totals, variants: [product1.master, product2.master, product3.master, product6.master]) }
-    let!(:completed_order_3) { create(:completed_order_with_totals, variants: [product1.master, product2.master, product3.master, product6.master]) }
-    let!(:completed_order_4) { create(:completed_order_with_totals, variants: [product2.master, product6.master]) }
-    let!(:completed_order_5) { create(:completed_order_with_totals, variants: [product2.master, product6.master]) }
-    let!(:completed_order_6) { create(:completed_order_with_totals, variants: [product6.master]) }
-
     before do
-      # Set explicit metrics so best-selling sort is deterministic in the full suite.
-      # refresh_metrics! can leave counts at zero when completed orders are not associated with the store.
-      {
-        product6 => { units_sold_count: 6, revenue: 60.0 },
-        product2 => { units_sold_count: 5, revenue: 50.0 },
-        product1 => { units_sold_count: 3, revenue: 30.0 },
-        product3 => { units_sold_count: 3, revenue: 20.0 },
-        product4 => { units_sold_count: 0, revenue: 0.0 }
-      }.each do |product, metrics|
-        product.store_products.find_by!(store: store).update!(metrics)
-      end
-
       visit spree.products_path
       expect(page).to have_css('.page-contents .product-card-title', count: 5)
     end
@@ -208,10 +189,23 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
       expect(page).to have_css('.page-contents .product-card-title', count: 5)
     end
 
+    def set_best_selling_metrics!
+      {
+        product6 => { units_sold_count: 6, revenue: 60.0 },
+        product2 => { units_sold_count: 5, revenue: 50.0 },
+        product1 => { units_sold_count: 3, revenue: 30.0 },
+        product3 => { units_sold_count: 3, revenue: 20.0 },
+        product4 => { units_sold_count: 0, revenue: 0.0 }
+      }.each do |product, metrics|
+        Spree::StoreProduct.where(store_id: store.id, product_id: product.id).update_all(metrics)
+      end
+    end
+
     it 'can sort by best selling' do
-      visit spree.products_path(sort_by: 'best-selling')
-      wait_for_turbo
-      expect(page).to have_css('.page-contents .product-card-title', count: 5)
+      set_best_selling_metrics!
+      sort_by Spree.t('products_sort_options.best_selling')
+
+      expect(page).to have_css('.page-contents .product-card-title', text: product6.name, match: :first, wait: 10)
 
       expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
         product6.name,

@@ -1,5 +1,18 @@
 en:
   spree:
+    automatic_taxon_names:
+      new_arrivals: New arrivals
+      on_sale: On sale
+    blog: Blog
+    changes_published: Changes published!
+    pages_defaults:
+      homepage:
+        featured_taxon_heading_new_arrivals: New arrivals
+        featured_taxon_heading_on_sale: On sale
+        image_with_text_heading: About us
+        image_with_text_text: Welcome to our shop! We carefully curate high-quality products that we believe in. Our process involves rigorous testing and selection to ensure we only offer items that meet our standards. We're passionate about delivering exceptional value and service to our customers.
+    shop_all: Shop All
+    theme_is_now_live: Theme is now live
     admin:
       edit_theme: Edit theme
       page_builder:
