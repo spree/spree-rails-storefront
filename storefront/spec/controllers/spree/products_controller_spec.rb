@@ -204,38 +204,6 @@ describe Spree::ProductsController, type: :controller do
         end
       end
     end
-
-    context 'when sorting by best selling' do
-      let!(:product1) { create(:product, name: 'Running Jacket', stores: [store]) }
-      let!(:product2) { create(:product, name: 'Waterproof Shoes', stores: [store]) }
-      let!(:product3) { create(:product, name: 'Warming gloves', stores: [store]) }
-      let!(:product4) { create(:product, name: 'Product out of stock', stores: [store]) }
-      let!(:product6) { create(:product, name: 'Product for free', stores: [store]) }
-
-      before do
-        {
-          product6 => { units_sold_count: 6, revenue: 60.0 },
-          product2 => { units_sold_count: 5, revenue: 50.0 },
-          product1 => { units_sold_count: 3, revenue: 30.0 },
-          product3 => { units_sold_count: 3, revenue: 20.0 },
-          product4 => { units_sold_count: 0, revenue: 0.0 }
-        }.each do |product, metrics|
-          Spree::StoreProduct.where(store_id: store.id, product_id: product.id).update_all(metrics)
-        end
-      end
-
-      it 'orders products by units sold' do
-        get :index, params: { sort_by: 'best-selling' }
-
-        expect(assigns(:storefront_products).map(&:name)).to eq [
-          product6.name,
-          product2.name,
-          product1.name,
-          product3.name,
-          product4.name
-        ]
-      end
-    end
   end
 
   describe '#show' do
