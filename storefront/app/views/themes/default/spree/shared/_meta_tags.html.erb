@@ -22,7 +22,7 @@
 <meta property="og:description" content="<%= h(og_description) %>">
 
 <% if page_image.present? && page_image.attached? && page_image.variable? %>
-  <% if @product && !page_image.record.is_a?(Spree::Store) %>
+  <% if @product && page_image.record.is_a?(Spree::Asset) %>
     <% image_url = spree_image_url(page_image, variant: :og_image) %>
   <% else %>
     <% image_url = spree_image_url(page_image, width: 1200, height: 630) %>
