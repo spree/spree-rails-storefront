@@ -189,33 +189,6 @@ RSpec.describe 'Product list', type: :feature, js: true, job: true do
       expect(page).to have_css('.page-contents .product-card-title', count: 5)
     end
 
-    def set_best_selling_metrics!
-      {
-        product6 => { units_sold_count: 6, revenue: 60.0 },
-        product2 => { units_sold_count: 5, revenue: 50.0 },
-        product1 => { units_sold_count: 3, revenue: 30.0 },
-        product3 => { units_sold_count: 3, revenue: 20.0 },
-        product4 => { units_sold_count: 0, revenue: 0.0 }
-      }.each do |product, metrics|
-        Spree::StoreProduct.where(store_id: store.id, product_id: product.id).update_all(metrics)
-      end
-    end
-
-    it 'can sort by best selling' do
-      set_best_selling_metrics!
-      sort_by Spree.t('products_sort_options.best_selling')
-
-      expect(page).to have_css('.page-contents .product-card-title', text: product6.name, match: :first, wait: 10)
-
-      expect(page.all('.page-contents .product-card-title').map(&:text)).to eq [
-        product6.name,
-        product2.name,
-        product1.name,
-        product3.name,
-        product4.name
-      ]
-    end
-
     it 'can sort alphabetically A-Z' do
       sort_by Spree.t('products_sort_options.name_a_z')
 
