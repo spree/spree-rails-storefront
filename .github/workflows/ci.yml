@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   test_page_builder:
-    name: Page Builder (${{ matrix.db }}${{ matrix.disable_spree_multi_store == 'true' && ', no spree_multi_store' || '' }})
+    name: Page Builder (${{ matrix.db }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -22,9 +22,6 @@ jobs:
             database_url: postgres://postgres:password@localhost:5432/spree_test
           - db: mysql
             database_url: mysql2://root:password@127.0.0.1:3306/spree_test
-          - db: postgres
-            database_url: postgres://postgres:password@localhost:5432/spree_test
-            disable_spree_multi_store: 'true'
     services:
       postgres:
         image: postgres:16
@@ -51,7 +48,6 @@ jobs:
     env:
       DB: ${{ matrix.db }}
       DATABASE_URL: ${{ matrix.database_url }}
-      DISABLE_SPREE_MULTI_STORE: ${{ matrix.disable_spree_multi_store }}
       RAILS_ENV: test
       CI: true
     steps:
