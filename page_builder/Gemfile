@@ -14,14 +14,20 @@ platforms :ruby do
 end
 
 spree_opts = if ENV['SPREE_PATH']
-               { path: ENV['SPREE_PATH'] }
+               { path: ENV['SPREE_PATH'], glob: 'spree/**/*.gemspec' }
              else
                { github: 'spree/spree', branch: 'main', glob: 'spree/**/*.gemspec' }
              end
 gem 'spree', spree_opts
 gem 'spree_admin', spree_opts
 
-gem 'spree_multi_store', github: 'spree/spree-multi-store', branch: 'main' unless ENV['DISABLE_SPREE_MULTI_STORE'] == 'true'
+unless ENV['DISABLE_SPREE_CUSTOM_DOMAINS'] == 'true'
+  if ENV['SPREE_CUSTOM_DOMAINS_PATH']
+    gem 'spree_custom_domains', path: ENV['SPREE_CUSTOM_DOMAINS_PATH']
+  else
+    gem 'spree_custom_domains', github: 'spree/spree_custom_domains', branch: 'main'
+  end
+end
 gem 'spree_posts', github: 'spree/spree-posts', branch: 'main'
 gem 'spree_dev_tools', '>= 0.6.0.rc1'
 
