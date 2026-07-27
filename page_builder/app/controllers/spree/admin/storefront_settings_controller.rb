@@ -1,8 +1,8 @@
 module Spree
   module Admin
-    class StorefrontController < BaseController
+    class StorefrontSettingsController < BaseController
       include StorefrontBreadcrumbConcern
-      add_breadcrumb Spree.t(:settings), :edit_admin_storefront_path
+      add_breadcrumb Spree.t(:settings), :edit_admin_storefront_settings_path
 
       def edit
         @store = current_store
@@ -17,7 +17,7 @@ module Spree
           flash[:error] = @store.errors.full_messages.to_sentence
         end
 
-        redirect_to spree.edit_admin_storefront_path
+        redirect_to spree.edit_admin_storefront_settings_path
       end
 
       private

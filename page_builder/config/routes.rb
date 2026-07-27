@@ -1,7 +1,7 @@
 Spree::Core::Engine.add_routes do
   namespace :admin, path: Spree.admin_path do
     # storefront / page builder
-    resource :storefront, only: [:edit, :update], controller: :storefront
+    resource :storefront_settings, only: [:edit, :update], controller: :storefront_settings
     resources :themes, except: [:new, :show] do
       member do
         put :update_with_page

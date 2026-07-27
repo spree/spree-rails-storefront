@@ -25,7 +25,7 @@ Rails.application.config.after_initialize do
     # Storefront Settings
     storefront.add :storefront_settings,
                   label: :settings,
-                  url: :edit_admin_storefront_path,
+                  url: :edit_admin_storefront_settings_path,
                   position: 40,
                   if: -> { can?(:manage, current_store) }
   end

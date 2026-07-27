@@ -10,6 +10,7 @@ module Spree
     include Spree::AnalyticsHelper
     include Spree::IntegrationsHelper
     include Spree::Storefront::PaginationConcern
+    include Spree::StorefrontCountriesHelper
 
     layout :choose_layout
 
@@ -21,6 +22,11 @@ module Spree
     helper 'spree/addresses'
     helper 'spree/wishlist'
     helper 'spree/integrations'
+
+    # declared as a `helper_method` so it takes precedence over
+    # `Spree::Admin::BaseHelper#available_countries`, which Rails'
+    # `include_all_helpers` would otherwise mix into storefront views
+    helper_method :available_countries
 
     helper_method :title
     helper_method :title=

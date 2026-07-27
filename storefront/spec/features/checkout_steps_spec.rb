@@ -543,8 +543,14 @@ describe 'Checkout steps (address and delivery)' do
 
       context 'when order has one invalid item' do
         before do
-          allow_any_instance_of(Spree::Order).to receive(:next!).and_return(false)
-          allow_any_instance_of(Spree::Order).to receive(:line_items_without_shipping_rates).and_return(order.line_items.limit(1))
+          # put the second line item in a shipping category no shipping method serves,
+          # so it ships separately and that shipment gets no shipping rate
+          order.line_items.second.variant.product.update!(shipping_category: create(:shipping_category, name: 'Uncovered'))
+
+          order.shipments.destroy_all
+          order.reload
+          order.create_proposed_shipments
+          order.save!
           order.reload
         end
 
@@ -564,8 +570,10 @@ describe 'Checkout steps (address and delivery)' do
 
       context 'when order has all invalid items' do
         before do
-          allow_any_instance_of(Spree::Order).to receive(:next!).and_return(false)
-          allow_any_instance_of(Spree::Order).to receive(:line_items_without_shipping_rates).and_return(order.line_items)
+          # drop every shipping rate and unassign the zones, so no shipment in the
+          # order can be served by a shipping method
+          order.shipments.each { |shipment| shipment.shipping_rates.destroy_all }
+          Spree::ShippingMethod.all.each { |shipping_method| shipping_method.zones.destroy_all }
           order.reload
         end
 
@@ -639,6 +647,8 @@ describe 'Checkout steps (address and delivery)' do
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: user.password
     click_button 'login-button'
+    # the address form is re-rendered after signing in, wait for it before filling it in
+    expect(page).to have_field('First Name')
   end
 
   def fill_in_address_form(country_field_name)
