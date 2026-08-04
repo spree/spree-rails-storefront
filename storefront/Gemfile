@@ -16,7 +16,7 @@ end
 spree_opts = if ENV['SPREE_PATH']
                { path: ENV['SPREE_PATH'], glob: 'spree/**/*.gemspec' }
              else
-               { github: 'spree/spree', branch: 'main', glob: 'spree/**/*.gemspec' }
+               { github: 'spree/spree', branch: '5-6-stable', glob: 'spree/**/*.gemspec' }
              end
 gem 'spree', spree_opts
 gem 'spree_admin', spree_opts
